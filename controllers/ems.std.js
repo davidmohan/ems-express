@@ -52,10 +52,10 @@ const createStd = async (req, res) => {
     };
     const user_res = await axios.post("http://localhost:5000/ems/user/create",userData);
     if (user_res.data.response) {
-      res.json({ response: "std true" }).status(200);
+      res.json({ response: true }).status(200);
     }
   } catch (e) {
-    res.json({ response: "std false "}).status(400)
+    res.json({ response: false}).status(400)
   }
 }
 

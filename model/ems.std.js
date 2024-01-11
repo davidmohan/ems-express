@@ -21,6 +21,9 @@ const schema = mongoose.Schema({
   privilege: {
     type: String
   },
+  graduation: {
+    type: String
+  },
   gender: {
     type: String
   },

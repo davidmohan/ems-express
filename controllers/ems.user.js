@@ -7,9 +7,9 @@ const createUser = async (req, res) => {
     const data = new emsUserSchema({...req.body})
     // console.log(data)
     await data.save()
-    res.json({ response: "user true" }).status(200)
+    res.json({ response: true }).status(200)
   } catch(e) {
-    res.json({ response: "user false" }).status(400)
+    res.json({ response: false }).status(400)
   }
 }
 

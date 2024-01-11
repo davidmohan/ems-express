@@ -27,14 +27,14 @@ const createAdmin = async (req, res) => {
     if (user_res.data.response) {
       res
         .json({
-          response:"Admin true",
+          response:true,
         })
         .status(200);
     }
   } catch (e) {
     console.log(e)
     res.json({
-      response: "Admin false",
+      response: false,
     }).status(400);
   }
 };
