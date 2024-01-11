@@ -27,14 +27,14 @@ const createStaff = async (req, res) => {
     if (user_res.data.response) {
       res
         .json({
-          response:"staff true",
+          response: true,
         })
         .status(200);
     }
   } catch (e) {
     res
       .json({
-        response: "staff false",
+        response: false,
       })
       .status(400);
   }
