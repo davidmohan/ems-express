@@ -35,6 +35,7 @@ const getAllUsers = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     const data = await emsUserSchema.findOne({ _id: req.params.id })
+    console.log(data)
     res.json({
       response: true,
       data: data
@@ -81,10 +82,10 @@ const updateUser = async (req, res) => {
         privilege: req.body.privilege
       }
     })
-    res.json({ response: "user true" }).status(200)
+    res.json({ response: true }).status(200)
   } catch (e) {
     // console.log(data)
-    res.json({ response: "user false" }).status(400)
+    res.json({ response: false }).status(400)
   }
 }
 
@@ -93,9 +94,20 @@ const deleteUser = async (req, res) => {
     const data = await emsUserSchema.deleteOne({
       ref_id: req.params.ref_id
     })
-    res.json({ response: "user true" }).status(200)
+    res.json({ response: true }).status(200)
   } catch (e) {
-    res.json({ response: "user false" }).status(400)
+    res.json({ response: false }).status(400)
+  }
+}
+
+const getUserByRefId = async (req, res) => {
+  try {
+    const data = await emsUserSchema.findOne({
+      ref_id: req.params.ref_id
+    })
+    res.json({ response: true, data: data }).status(200)
+  } catch (e) {
+    res.json({ response: false }).status(400)
   }
 }
 
@@ -106,5 +118,6 @@ module.exports = {
   getUser,
   authUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  getUserByRefId
 }

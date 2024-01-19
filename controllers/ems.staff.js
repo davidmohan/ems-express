@@ -88,9 +88,9 @@ const updateStaff = async (req, res) => {
       password: req.body.password,
       privilege: req.body.privilege
     })
-    res.json({ response: "staff true" }).status(200)
+    res.json({ response: true }).status(200)
   } catch (e) {
-    res.json({ response: "staff false" }).status(400)
+    res.json({ response: false }).status(400)
   }
 };
 
@@ -99,9 +99,9 @@ const deleteStaff = async (req, res) => {
   try {
     const data = await emsStaffSchema.deleteOne({ _id: req.params.id })
     const userDelete = await axios.delete(`http://localhost:5000/ems/user/${req.params.id}`)
-    res.json({ response: "staff true" })
+    res.json({ response: true })
   } catch (e) {
-    res.json({ response: "staff false" })
+    res.json({ response: false })
   }
 }
 

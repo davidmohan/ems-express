@@ -40,7 +40,71 @@ const createAdmin = async (req, res) => {
 };
 
 
+const getAllAdmins = async (req, res) => {
+  try {
+    const data = await emsAdminSchema.find();
+    res
+      .json({
+        response: true,
+        count: data.length,
+        data: data,
+      })
+      .status(200);
+  } catch (e) {
+    res.json({ response: false }).status(400);
+  }
+}
+
+const getAdmin = async (req, res) => {
+  try {
+    const data = await emsAdminSchema.findOne({ _id: req.params.id });
+    res.json({
+      response: true,
+      data: data,
+    }).status(200);
+  } catch (e) {
+    res.json({ response: false }).status(400);
+  }
+}
+
+const updateAdmin = async (req, res) => {
+  try {
+    const data = await emsAdminSchema.updateOne(
+      { _id: req.params.id },
+      {
+        $set: {
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          password: req.body.password,
+          privilege: req.body.privilege,
+          gender: req.body.gender,
+        },
+      })
+    const userUpdate = await axios.put(`http://localhost:5000/ems/user/${req.params.id}`, {
+      password: req.body.password,
+      privilege: req.body.privilege
+    })
+    res.json({ response: true }).status(200)
+  } catch (e) {
+    res.json({ response: false }).status(400)
+  }
+}
+
+const deleteAdmin = async (req, res) => {
+  try {
+    const data = await emsAdminSchema.deleteOne({ _id: req.params.id })
+    const userDelete = await axios.delete(`http://localhost:5000/ems/user/${req.params.id}`)
+    res.json({ response: true })
+  } catch (e) {
+    res.json({ response: false })
+  }
+}
+
 
 module.exports = {
-  createAdmin
+  createAdmin,
+  getAllAdmins,
+  getAdmin,
+  updateAdmin,
+  deleteAdmin 
 }

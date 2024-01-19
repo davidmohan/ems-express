@@ -15,6 +15,7 @@ const {
   createUser,
   updateUser,
   deleteUser,
+  getUserByRefId,
 } = require("../controllers/ems.user");
 
 const {
@@ -49,7 +50,14 @@ const {
   updateFeedback,
   deleteFeedback,
 } = require("../controllers/ems.feedbacks");
-const { createAdmin } = require("../controllers/ems.admin");
+
+const {
+  createAdmin,
+  getAllAdmins,
+  getAdmin,
+  updateAdmin,
+  deleteAdmin,
+} = require("../controllers/ems.admin");
 
 const EmsRouter = Router();
 
@@ -59,14 +67,15 @@ EmsRouter.get("/user/all", getAllUsers);
 EmsRouter.get("/user/:id", getUser);
 EmsRouter.get("/user/auth/:email/:password", authUser);
 EmsRouter.put("/user/:ref_id", updateUser);
+EmsRouter.get("/user/update/:ref_id", getUserByRefId);
 EmsRouter.delete("/user/:ref_id", deleteUser);
 
 /* Admin */
 EmsRouter.post("/admin/create", createAdmin);
-// EmsRouter.get("/staff/all", getAllStaffs);
-// EmsRouter.get("/staff/:id", getStaff);
-// EmsRouter.put("/staff/:id", updateStaff);
-// EmsRouter.delete("/staff/:id", deleteStaff);
+EmsRouter.get("/admin/all", getAllAdmins);
+EmsRouter.get("/admin/:id", getAdmin);
+EmsRouter.put("/admin/:id", updateAdmin);
+EmsRouter.delete("/admin/:id", deleteAdmin);
 
 /* Staff  */
 EmsRouter.post("/staff/create", createStaff);

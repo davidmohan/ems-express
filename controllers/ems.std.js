@@ -74,7 +74,6 @@ const updateStd = async (req, res) => {
     }})
     const userUpdate = await axios.put(`http://localhost:5000/ems/user/${req.params.id}`, {
       password: req.body.password,
-      privilege: req.body.privilege
     })
     res.json({ response: "staff true" }).status(200)
   } catch (e) {
