@@ -35,7 +35,7 @@ const getAllUsers = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     const data = await emsUserSchema.findOne({ _id: req.params.id })
-    console.log(data)
+    // console.log(data)
     res.json({
       response: true,
       data: data

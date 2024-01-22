@@ -20,6 +20,7 @@ const getAllStds = async (req, res) => {
 const getStd = async (req, res) => {
   try {
     const data = await emsStdSchema.findOne({ _id: req.params.id })
+    console.log(data)
     res.json({
       response: true,
       data: data
