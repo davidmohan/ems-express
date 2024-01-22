@@ -15,7 +15,7 @@ dotenv.config()
 
 /* Listening */
 app.listen(process.env.PORT, () => {
-	console.log(`http://localhost${process.env.PORT}`)
+	console.log(`http://localhost:${process.env.PORT}`)
 })
 
 app.use('/ems', EmsRouter)

@@ -14,6 +14,9 @@ const schema = mongoose.Schema({
   venue: {
     type: String
   },
+  graduation: {
+    type: String
+  },
   event_type: {
     type: String
   },
@@ -26,19 +29,16 @@ const schema = mongoose.Schema({
   end_date: {
     type: Date
   },
-  brochure: {
-    type: Buffer
-  },
+  // brochure: {
+  //   type: Buffer
+  // },
   summary: {
     type: String
   },
-  organizer_id: {
+  ref_id: {
     type: String
   },
   status: {
-    type: Boolean
-  },
-  get_feedbacks: {
     type: Boolean
   }
 })
