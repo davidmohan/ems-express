@@ -94,7 +94,7 @@ const deleteUser = async (req, res) => {
     const data = await emsUserSchema.deleteOne({
       ref_id: req.params.ref_id
     })
-    res.json({ response: true }).status(200)
+    res.json({ response: true, data: data }).status(200)
   } catch (e) {
     res.json({ response: false }).status(400)
   }

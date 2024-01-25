@@ -87,9 +87,9 @@ const deleteStd = async (req, res) => {
   try {
     const data = await emsStdSchema.deleteOne({ _id: req.params.id })
     const user_res = await axios.delete(`http://localhost:5000/ems/user/${req.params.id}`)
-    res.json({ response: "std true "}).status(200)
+    res.json({ response: true}).status(200)
   } catch (e) {
-    res.json({ response: "std false "}).status(400)
+    res.json({ response: false}).status(400)
   }
 }
 
