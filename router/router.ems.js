@@ -33,6 +33,8 @@ const {
   getEventsByYearAndDept,
   updateEvent,
   deleteEvent,
+  getEventByStaff,
+  eventStatusUpdate
 } = require("../controllers/ems.events");
 
 const {
@@ -41,6 +43,7 @@ const {
   getRegistration,
   updateRegistration,
   deleteRegistration,
+  getRegistrationByEventAndRegNo,
 } = require("../controllers/ems.registrations");
 
 const {
@@ -96,12 +99,15 @@ EmsRouter.post("/event/create", createEvent);
 EmsRouter.get("/event/all", getAllEvents);
 EmsRouter.get("/event/:id", getEventById);
 EmsRouter.get("/event/:year/:dept", getEventsByYearAndDept);
+EmsRouter.get("/event/f/staff/:staff_id", getEventByStaff);
 EmsRouter.put("/event/:id", updateEvent);
+EmsRouter.put("/event/s/u/:event_id", eventStatusUpdate);
 EmsRouter.delete("/event/:id", deleteEvent);
 
 /* Registrations */
 EmsRouter.post("/registration/create", createRegistration);
-EmsRouter.get("/registration/event/:event_id", getRegistrationsByEventId);
+EmsRouter.get("/registration/:event_id/:reg_no", getRegistrationByEventAndRegNo);
+EmsRouter.get("/registration/e/g/:event_id", getRegistrationsByEventId);
 EmsRouter.get("/registration/:id", getRegistration);
 EmsRouter.put("/registration/:id", updateRegistration);
 EmsRouter.delete("/registration/:id", deleteRegistration);

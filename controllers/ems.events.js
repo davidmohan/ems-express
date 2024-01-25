@@ -37,9 +37,10 @@ const getEventById = async (req, res) => {
 const getEventsByYearAndDept = async (req, res) => {
   try {
     const data = await emsEventSchema.find({
-      year_can_participate: { $eq: parseInt(req.params.year) },
+      year_can_participate: { $eq: req.params.year },
       dept_can_participate: { $eq: req.params.dept }
     })
+    console.log(data)
     res.json({
       response: true,
       data: data
@@ -103,6 +104,37 @@ const updateEvent = async (req, res) => {
   }
 }
 
+const getEventByStaff = async (req, res) => {
+  try {
+    const data = await emsEventSchema.find({ ref_id: req.params.staff_id })
+    res.json({
+      response: true,
+      data: data
+    }).status(200)
+  } catch (e) {
+    res.json({
+      response: false
+    }).status(400)
+  }
+}
+
+const eventStatusUpdate = async (req, res) => {
+  try {
+    const data = await emsEventSchema.updateOne(
+      { _id: req.params.event_id },
+      { $set: {
+        status: req.body.value
+      }
+    })
+    res.json({
+      response: true
+    }).status(200)
+  } catch (e) {
+    res.json({
+      response: false
+    }).status(400)
+  }
+}
 
 module.exports = {
   getAllEvents,
@@ -110,5 +142,7 @@ module.exports = {
   getEventsByYearAndDept,
   createEvent,
   updateEvent,
-  deleteEvent
+  deleteEvent,
+  getEventByStaff,
+  eventStatusUpdate
 }

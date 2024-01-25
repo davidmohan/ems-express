@@ -9,13 +9,15 @@ const schema = mongoose.Schema({
     type: String
   },
   reg_no: {
-    type: String,
-    unique: true
+    type: String, 
   },
   dept: {
     type: String
   },
   year_of_study: {
+    type: String
+  },
+  email: {
     type: String
   },
   registration: {
