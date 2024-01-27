@@ -32,6 +32,9 @@ const schema = mongoose.Schema({
   event_id: {
     type: String
   },
+  feedback: {
+    type: Boolean
+  }
 })
 
 

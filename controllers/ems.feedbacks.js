@@ -72,11 +72,52 @@ const deleteFeedback = async (req, res) => {
   } 
 }
 
+const getAllFeedbacks = async (req, res) => {
+  try {
+    const data = await emsFeedbackSchema.find()
+    res.json({
+      response: true,
+      data: data
+    })
+  } catch (e) {
+    res.json({
+      response: false
+    })
+  }
+}
+
+const getFeedbackByEventAndRegNo = async (req, res) => {
+  try {
+    const data = await emsFeedbackSchema.findOne({ 
+      reg_no: req.params.reg_no,
+      event_id: req.params.event_id
+    })
+    if (data) {
+      res.json({
+        response: false,
+        data: data,
+        found: true
+      })
+    } else {
+      res.json({
+        response: true,
+        found: false
+      })
+    }
+  } catch (e) {
+    res.json({
+      response: false,
+    })
+  }
+}
+
 
 module.exports = {
   getFeedback,
   getFeedbacksByEventId,
   updateFeedback,
   deleteFeedback,
-  createFeedback
+  createFeedback,
+  getFeedbackByEventAndRegNo,
+  getAllFeedbacks
 }

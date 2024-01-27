@@ -40,7 +40,16 @@ const schema = mongoose.Schema({
   },
   status: {
     type: Boolean
-  }
+  },
+  contact_number: {
+    type: Number
+  },
+  contact_email: {
+    type: String
+  },
+  feedback_status: {
+    type: Boolean
+  },
 })
 
 const emsEventSchema = emsdb.model('events', schema)

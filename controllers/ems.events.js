@@ -136,6 +136,24 @@ const eventStatusUpdate = async (req, res) => {
   }
 }
 
+const feedbackStatusUpdate = async (req, res) => {
+  try {
+    const data = await emsEventSchema.updateOne(
+      { _id: req.params.event_id },
+      { $set: {
+        feedback_status: req.body.value
+      }
+    })
+    res.json({
+      response: true
+    }).status(200)
+  } catch (e) {
+    res.json({
+      response: false
+    }).status(400)
+  }
+}
+
 module.exports = {
   getAllEvents,
   getEventById,
@@ -144,5 +162,6 @@ module.exports = {
   updateEvent,
   deleteEvent,
   getEventByStaff,
-  eventStatusUpdate
+  eventStatusUpdate,
+  feedbackStatusUpdate
 }

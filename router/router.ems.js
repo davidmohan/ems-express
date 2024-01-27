@@ -34,7 +34,8 @@ const {
   updateEvent,
   deleteEvent,
   getEventByStaff,
-  eventStatusUpdate
+  eventStatusUpdate,
+  feedbackStatusUpdate
 } = require("../controllers/ems.events");
 
 const {
@@ -52,6 +53,8 @@ const {
   getFeedback,
   updateFeedback,
   deleteFeedback,
+  getAllFeedbacks,
+  getFeedbackByEventAndRegNo,
 } = require("../controllers/ems.feedbacks");
 
 const {
@@ -102,6 +105,7 @@ EmsRouter.get("/event/:year/:dept", getEventsByYearAndDept);
 EmsRouter.get("/event/f/staff/:staff_id", getEventByStaff);
 EmsRouter.put("/event/:id", updateEvent);
 EmsRouter.put("/event/s/u/:event_id", eventStatusUpdate);
+EmsRouter.put("/event/fbstatus/u/:event_id", feedbackStatusUpdate);
 EmsRouter.delete("/event/:id", deleteEvent);
 
 /* Registrations */
@@ -114,7 +118,9 @@ EmsRouter.delete("/registration/:id", deleteRegistration);
 
 /* Feedbacks */
 EmsRouter.post("/feedback/create", createFeedback);
-EmsRouter.get("/feedback/all", getFeedbacksByEventId);
+EmsRouter.get("/feedback/all/:event_id", getFeedbacksByEventId);
+EmsRouter.get("/feedback/all", getAllFeedbacks);
+EmsRouter.get("/feedback/one/:event_id/:reg_no", getFeedbackByEventAndRegNo);
 EmsRouter.get("/feedback/:id", getFeedback);
 EmsRouter.put("/feedback/:id", updateFeedback);
 EmsRouter.delete("/feedback/:id", deleteFeedback);
