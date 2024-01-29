@@ -51,7 +51,7 @@ const createStd = async (req, res) => {
       privilege: data.privilege,
       ref_id: db_res._id,
     };
-    const user_res = await axios.post("http://localhost:5000/ems/user/create",userData);
+    const user_res = await axios.post(`${process.env.url}/ems/user/create`,userData);
     if (user_res.data.response) {
       res.json({ response: true }).status(200);
     }
@@ -73,7 +73,7 @@ const updateStd = async (req, res) => {
       year_of_study: req.body.year_of_study,
       gender: req.body.gender
     }})
-    const userUpdate = await axios.put(`http://localhost:5000/ems/user/${req.params.id}`, {
+    const userUpdate = await axios.put(`${process.env.url}/ems/user/${req.params.id}`, {
       password: req.body.password,
     })
     res.json({ response: "staff true" }).status(200)
@@ -86,7 +86,7 @@ const updateStd = async (req, res) => {
 const deleteStd = async (req, res) => {
   try {
     const data = await emsStdSchema.deleteOne({ _id: req.params.id })
-    const user_res = await axios.delete(`http://localhost:5000/ems/user/${req.params.id}`)
+    const user_res = await axios.delete(`${process.env.url}/ems/user/${req.params.id}`)
     res.json({ response: true}).status(200)
   } catch (e) {
     res.json({ response: false}).status(400)

@@ -65,7 +65,7 @@ const getRegistrationByEventAndRegNo = async (req, res) => {
 /* Create a new registration for a event */
 const createRegistration = async (req, res) => {
   try {
-    const result = await axios.get(`http://localhost:5000/ems/registration/${req.body.event_id}/${req.body.reg_no}`)
+    const result = await axios.get(`${process.env.url}/ems/registration/${req.body.event_id}/${req.body.reg_no}`)
     if (result.data.response == true) {
       const data = new emsRegistrationSchema({...req.body})
       data.save()

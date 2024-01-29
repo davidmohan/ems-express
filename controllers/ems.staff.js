@@ -22,7 +22,7 @@ const createStaff = async (req, res) => {
       privilege: staffData.privilege,
       ref_id: db_res._id,
     };
-    const user_res = await axios.post("http://localhost:5000/ems/user/create",userData);
+    const user_res = await axios.post(`${process.env.url}/ems/user/create`,userData);
     // const user_res = await createUser(userData)
     if (user_res.data.response) {
       res
@@ -84,7 +84,7 @@ const updateStaff = async (req, res) => {
           gender: req.body.gender,
         },
       })
-    const userUpdate = await axios.put(`http://localhost:5000/ems/user/${req.params.id}`, {
+    const userUpdate = await axios.put(`${process.env.url}/ems/user/${req.params.id}`, {
       password: req.body.password,
       privilege: req.body.privilege
     })
@@ -98,7 +98,7 @@ const updateStaff = async (req, res) => {
 const deleteStaff = async (req, res) => {
   try {
     const data = await emsStaffSchema.deleteOne({ _id: req.params.id })
-    const userDelete = await axios.delete(`http://localhost:5000/ems/user/${req.params.id}`)
+    const userDelete = await axios.delete(`${process.env.url}/ems/user/${req.params.id}`)
     res.json({ response: true })
   } catch (e) {
     res.json({ response: false })

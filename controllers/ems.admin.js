@@ -1,6 +1,8 @@
 const { default: axios } = require("axios");
 const { emsAdminSchema } = require("../model/ems.admin");
-const crypto = require('crypto')
+const crypto = require('crypto');
+const dotenv = require("dotenv");
+dotenv.config()
 
 const getHashedPassword = (password) => {
   const sha256 = crypto.createHash("sha256");
@@ -22,7 +24,7 @@ const createAdmin = async (req, res) => {
       privilege: adminData.privilege,
       ref_id: db_res._id,
     };
-    const user_res = await axios.post("http://localhost:5000/ems/user/create",userData);
+    const user_res = await axios.post(`${process.env.url}/ems/user/create`,userData);
     // const user_res = await createUser(userData)
     if (user_res.data.response) {
       res
@@ -80,7 +82,7 @@ const updateAdmin = async (req, res) => {
           gender: req.body.gender,
         },
       })
-    const userUpdate = await axios.put(`http://localhost:5000/ems/user/${req.params.id}`, {
+    const userUpdate = await axios.put(`${process.env.url}/ems/user/${req.params.id}`, {
       password: req.body.password,
       privilege: req.body.privilege
     })
@@ -93,7 +95,7 @@ const updateAdmin = async (req, res) => {
 const deleteAdmin = async (req, res) => {
   try {
     const data = await emsAdminSchema.deleteOne({ _id: req.params.id })
-    const userDelete = await axios.delete(`http://localhost:5000/ems/user/${req.params.id}`)
+    const userDelete = await axios.delete(`${process.env.url}/ems/user/${req.params.id}`)
     res.json({ response: true })
   } catch (e) {
     res.json({ response: false })
