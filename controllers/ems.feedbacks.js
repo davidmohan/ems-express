@@ -1,4 +1,5 @@
 const { emsFeedbackSchema } = require('../model/ems.feedbacks')
+const json2csv = require('json2csv').parse
 
 /* Get feedbacks based on the event_id */
 const getFeedbacksByEventId = async (req, res) => {
@@ -16,6 +17,37 @@ const getFeedbacksByEventId = async (req, res) => {
       response: false
     }).status(400)
   } 
+}
+
+const getFeedbacksCSV = async (req, res) => {
+  try {
+    const data = await emsFeedbackSchema.find({
+      event_id: req.params.event_id
+    })
+
+    const finalData = data.map((value) => ({
+      FIRST_NAME: value.first_name,
+      LAST_NAME: value.last_name,
+      DEPARTMENT: value.dept,
+      EMAIL: value.email,
+      YEAR_OF_STUDY: value.year_of_study,
+      GUIDENCE: value.guidence,
+      HOSPITALITY: value.hospitality,
+      EXPERIENCE: value.experience,
+      OPINION: value.opinion,
+    }))
+
+    console.log(finalData)
+
+    const csvData = json2csv(finalData);
+
+    res.setHeader('Content-disposition', 'attachment; filename=data.csv');
+    res.set('Content-Type', 'text/csv');
+    res.status(200).send(csvData);
+  }
+  catch (e) {
+    res.json({response: false}).status(400)
+  }
 }
 
 /* Get feedback based on the _id */
@@ -119,5 +151,6 @@ module.exports = {
   deleteFeedback,
   createFeedback,
   getFeedbackByEventAndRegNo,
-  getAllFeedbacks
+  getAllFeedbacks,
+  getFeedbacksCSV
 }

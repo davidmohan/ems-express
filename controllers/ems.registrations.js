@@ -1,5 +1,6 @@
 const { default: axios } = require("axios")
 const { emsRegistrationSchema } = require("../model/ems.registrations")
+const json2csv = require('json2csv').parse
 
 /* Get all the registrations based on the event_id */
 const getRegistrationsByEventId = async (req, res) => {
@@ -7,7 +8,7 @@ const getRegistrationsByEventId = async (req, res) => {
     const data = await emsRegistrationSchema.find({
       event_id: req.params.event_id
     })
-    console.log(data)
+    // console.log(data)
     res.json({
       response: true,
       count: data.length,
@@ -17,6 +18,34 @@ const getRegistrationsByEventId = async (req, res) => {
     res.json({
       response: false
     }).status(400)
+  }
+}
+
+
+const getRegistrationCSV = async (req, res) => {
+  try {
+    const data = await emsRegistrationSchema.find({
+      event_id: req.params.event_id
+    })
+
+    const finalData = data.map((value) => ({
+      FIRST_NAME: value.first_name,
+      LAST_NAME: value.last_name,
+      DEPARTMENT: value.dept,
+      EMAIL: value.email,
+      YEAR_OF_STUDY: value.year_of_study
+    }))
+
+    // console.log(finalData)
+
+    const csvData = json2csv(finalData);
+
+    res.setHeader('Content-disposition', 'attachment; filename=data.csv');
+    res.set('Content-Type', 'text/csv');
+    res.status(200).send(csvData);
+  }
+  catch (e) {
+    res.json({response: false}).status(400)
   }
 }
 
@@ -113,5 +142,6 @@ module.exports = {
   createRegistration,
   updateRegistration,
   deleteRegistration,
-  getRegistrationByEventAndRegNo
+  getRegistrationByEventAndRegNo,
+  getRegistrationCSV
 }

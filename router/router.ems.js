@@ -45,6 +45,7 @@ const {
   updateRegistration,
   deleteRegistration,
   getRegistrationByEventAndRegNo,
+  getRegistrationCSV,
 } = require("../controllers/ems.registrations");
 
 const {
@@ -55,6 +56,7 @@ const {
   deleteFeedback,
   getAllFeedbacks,
   getFeedbackByEventAndRegNo,
+  getFeedbacksCSV,
 } = require("../controllers/ems.feedbacks");
 
 const {
@@ -115,6 +117,7 @@ EmsRouter.get("/registration/e/g/:event_id", getRegistrationsByEventId);
 EmsRouter.get("/registration/:id", getRegistration);
 EmsRouter.put("/registration/:id", updateRegistration);
 EmsRouter.delete("/registration/:id", deleteRegistration);
+EmsRouter.get("/registration/csv/generate/:event_id", getRegistrationCSV)
 
 /* Feedbacks */
 EmsRouter.post("/feedback/create", createFeedback);
@@ -124,6 +127,7 @@ EmsRouter.get("/feedback/one/:event_id/:reg_no", getFeedbackByEventAndRegNo);
 EmsRouter.get("/feedback/:id", getFeedback);
 EmsRouter.put("/feedback/:id", updateFeedback);
 EmsRouter.delete("/feedback/:id", deleteFeedback);
+EmsRouter.get("/feedback/csv/generate/:event_id", getFeedbacksCSV)
 
 module.exports = {
   EmsRouter,

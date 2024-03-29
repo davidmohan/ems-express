@@ -34,6 +34,9 @@ const schema = mongoose.Schema({
   },
   feedback: {
     type: Boolean
+  },
+  year_of_study: {
+    type: Number
   }
 })
 
